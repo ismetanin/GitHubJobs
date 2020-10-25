@@ -1,0 +1,25 @@
+name: Jobs
+
+targets:
+  Jobs:
+    type: application
+    platform: iOS
+    sources: [Jobs]
+    deploymentTarget: "14.0"
+    scheme:
+      testTargets:
+        - JobsTests
+   
+  JobsTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: JobsTests
+    dependencies:
+      - target: Jobs
+    gatherCoverageData: true
+
+options:
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+  bundleIdPrefix: ismetanin.github.io
+
