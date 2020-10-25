@@ -1,0 +1,5 @@
+xcassets:
+  inputs: Jobs/Resources/Assets
+  outputs:
+    templateName: swift5
+    output: Jobs/Resources/Constants/Assets.swift

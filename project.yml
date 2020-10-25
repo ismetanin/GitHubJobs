@@ -9,6 +9,11 @@ targets:
     scheme:
       testTargets:
         - JobsTests
+    preBuildScripts:
+      - script: make swiftgen
+        name: SwiftGen
+      - script: make lint
+        name: SwiftLint
    
   JobsTests:
     type: bundle.unit-test
