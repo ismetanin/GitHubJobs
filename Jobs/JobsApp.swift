@@ -11,7 +11,29 @@ import SwiftUI
 struct JobsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                PositionsView()
+            }
         }
+    }
+
+    init() {
+        applyNavigationAppearance()
+    }
+
+    private func applyNavigationAppearance() {
+        let standard = UINavigationBarAppearance()
+        standard.configureWithTransparentBackground()
+        standard.backgroundColor = .white
+        standard.titleTextAttributes = [.foregroundColor: UIColor.black]
+        standard.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+
+        let scrollEdge = standard.copy()
+        scrollEdge.backgroundColor = Color.mainBackground.uiColor
+
+        UINavigationBar.appearance().standardAppearance = standard
+        UINavigationBar.appearance().compactAppearance = standard
+        UINavigationBar.appearance().scrollEdgeAppearance = scrollEdge
+        UINavigationBar.appearance().tintColor = .blue
     }
 }
