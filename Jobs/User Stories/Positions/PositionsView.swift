@@ -14,9 +14,22 @@ struct PositionsView: View {
         case data(positions: [Position])
     }
 
-    @ObservedObject var viewModel = PositionsViewModel()
+    @ObservedObject var viewModel: PositionsViewModel
+
+    init(viewModel: PositionsViewModel = PositionsViewModel()) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
+        ZStack {
+            Color.mainBackground.ignoresSafeArea()
+            content
+                .navigationBarTitle("Positions")
+        }
+        .edgesIgnoringSafeArea(.vertical)
+    }
+
+    private var content: AnyView {
         switch viewModel.state {
         case .data(let positions):
             return positionsView(with: positions)
@@ -33,13 +46,15 @@ struct PositionsView: View {
                 ForEach(positions) {
                     Text($0.id)
                 }
+                .listRowBackground(Color.white)
             }
+            .listStyle(PlainListStyle())
         )
     }
 
     private func loadingView() -> AnyView {
         AnyView(
-            Text("Loading")
+            Text("Loading...")
         )
     }
 
@@ -52,6 +67,8 @@ struct PositionsView: View {
 
 struct PositionsView_Previews: PreviewProvider {
     static var previews: some View {
-        PositionsView()
+        let viewModel = PositionsViewModel()
+        viewModel.state = .data(positions: [Position(id: "1")])
+        return PositionsView(viewModel: viewModel)
     }
 }

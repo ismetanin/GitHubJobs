@@ -13,8 +13,8 @@ final class PositionsViewModel: ObservableObject {
 
     private var cancellableSet: Set<AnyCancellable> = []
 
-    init() {
-        PositionsService(session: .shared)
+    init(service: PositionsService = PositionsService(session: .shared)) {
+        service
             .search()
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in

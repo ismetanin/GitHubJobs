@@ -1,5 +1,5 @@
 xcassets:
   inputs: Jobs/Resources/Assets
   outputs:
-    templateName: swift5
+    templateName: swiftui
     output: Jobs/Resources/Constants/Assets.swift
