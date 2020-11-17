@@ -29,36 +29,67 @@ struct PositionsView: View {
         .edgesIgnoringSafeArea(.vertical)
     }
 
-    private var content: AnyView {
+    @ViewBuilder
+    private var content: some View {
         switch viewModel.state {
         case .data(let positions):
-            return positionsView(with: positions)
+            positionsView(with: positions)
         case .loading:
-            return loadingView()
+            loadingView
         case .error(let error):
-            return errorView(with: error)
+            errorView(with: error)
         }
     }
 
-    private func positionsView(with positions: [Position]) -> AnyView {
+    @ViewBuilder
+    private func positionsView(with positions: [Position]) -> some View {
         AnyView(
             List {
                 ForEach(positions) {
-                    Text($0.id)
+                    positionView(with: $0)
                 }
-                .listRowBackground(Color.white)
+                .listRowBackground(Color.contrastBackground)
             }
             .listStyle(PlainListStyle())
         )
     }
 
-    private func loadingView() -> AnyView {
+    @ViewBuilder
+    private func positionView(with position: Position) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(alignment: .center) {
+                Text(position.title)
+                    .font(.system(.body))
+                    .fontWeight(.medium)
+                    .foregroundColor(Color.accent)
+                    .multilineTextAlignment(.leading)
+                Spacer()
+                Text(position.location)
+                    .font(.system(.footnote))
+                    .foregroundColor(Color.text)
+                    .multilineTextAlignment(.trailing)
+            }
+
+            HStack(alignment: .bottom) {
+                Text(position.company + " – ")
+                    .font(.system(.footnote))
+                    .fontWeight(.light)
+                Text(position.type)
+                    .font(.system(.footnote))
+                    .fontWeight(.medium)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var loadingView: some View {
         AnyView(
             Text("Loading...")
         )
     }
 
-    private func errorView(with error: Error) -> AnyView {
+    @ViewBuilder
+    private func errorView(with error: Error) -> some View {
         AnyView(
             Text("Something went wrong")
         )
@@ -68,7 +99,27 @@ struct PositionsView: View {
 struct PositionsView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PositionsViewModel()
-        viewModel.state = .data(positions: [Position(id: "1")])
+        viewModel.state = .data(
+            positions: [
+                Position.random,
+                Position.random,
+                Position.random
+            ]
+        )
         return PositionsView(viewModel: viewModel)
+    }
+}
+
+private extension Position {
+    static var random: Position {
+        return Position(
+            id: String(Int.random(in: 0...999999999)),
+            type: String(Int.random(in: 0...999999999)),
+            url: String(Int.random(in: 0...999999999)),
+            company: String(Int.random(in: 0...999999999)),
+            location: String(Int.random(in: 0...999999999)),
+            description: String(Int.random(in: 0...999999999)),
+            title: String(Int.random(in: 0...999999999))
+        )
     }
 }

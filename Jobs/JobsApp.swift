@@ -24,9 +24,9 @@ struct JobsApp: App {
     private func applyNavigationAppearance() {
         let standard = UINavigationBarAppearance()
         standard.configureWithTransparentBackground()
-        standard.backgroundColor = .white
-        standard.titleTextAttributes = [.foregroundColor: UIColor.black]
-        standard.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        standard.backgroundColor = Color.contrastBackground.uiColor
+        standard.titleTextAttributes = [.foregroundColor: Color.text.uiColor]
+        standard.largeTitleTextAttributes = [.foregroundColor: Color.text.uiColor]
 
         let scrollEdge = standard.copy()
         scrollEdge.backgroundColor = Color.mainBackground.uiColor

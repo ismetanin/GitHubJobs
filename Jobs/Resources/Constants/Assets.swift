@@ -6,7 +6,10 @@ import SwiftUI
 internal extension Color {
   // Assets.xcassets
   // Colors.xcassets
+  static var accent : Color { Color("accent", bundle: BundleToken.bundle) }
+  static var contrastBackground : Color { Color("contrastBackground", bundle: BundleToken.bundle) }
   static var mainBackground : Color { Color("mainBackground", bundle: BundleToken.bundle) }
+  static var text : Color { Color("text", bundle: BundleToken.bundle) }
 }
 
 internal extension Image {
